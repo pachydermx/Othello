@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eddca888-99cc-487b-864b-c6b5874f919f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/kadai/exp/OthelloGame.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Othello/kadai/exp/OthelloBoard.class" afterPath="$PROJECT_DIR$/out/production/Othello/kadai/exp/OthelloBoard.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Othello/kadai/exp/OthelloPiece.class" afterPath="$PROJECT_DIR$/out/production/Othello/kadai/exp/OthelloPiece.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kadai/exp/OthelloBoard.java" afterPath="$PROJECT_DIR$/src/kadai/exp/OthelloBoard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kadai/exp/OthelloPiece.java" afterPath="$PROJECT_DIR$/src/kadai/exp/OthelloPiece.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/kadai/exp/SearchState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/kadai/exp/OthelloGame.java" afterPath="$PROJECT_DIR$/src/kadai/exp/OthelloGame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Othello.iws" />
@@ -82,8 +78,21 @@
       <file leaf-file-name="OthelloGame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/kadai/exp/OthelloGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.58064514">
-              <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.70149255">
+              <caret line="71" column="68" selection-start-line="71" selection-start-column="68" selection-end-line="71" selection-end-column="68" />
+              <folding>
+                <element signature="method#checkBorder#0;class#OthelloGame#0" expanded="false" />
+                <element signature="method#getState#0;class#OthelloGame#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SearchState.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/kadai/exp/SearchState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -104,8 +113,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -125,6 +134,7 @@
         <option value="$PROJECT_DIR$/src/kadai/exp/OthelloPieceState.java" />
         <option value="$PROJECT_DIR$/src/kadai/exp/OthelloBoard.java" />
         <option value="$PROJECT_DIR$/src/kadai/exp/OthelloPiece.java" />
+        <option value="$PROJECT_DIR$/src/kadai/exp/SearchState.java" />
         <option value="$PROJECT_DIR$/src/kadai/exp/OthelloGame.java" />
       </list>
     </option>
@@ -133,9 +143,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="857" />
     <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="827" />
+    <option name="width" value="1703" />
+    <option name="height" value="1367" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -377,7 +388,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="827" extended-state="6" />
+    <frame x="857" y="23" width="1703" height="1367" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -395,8 +406,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24964234" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3292517" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21011439" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18980393" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -525,11 +536,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/kadai/exp/SearchState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/kadai/exp/OthelloGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.58064514">
-          <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
-          <folding />
+        <state vertical-scroll-proportion="0.70149255">
+          <caret line="71" column="68" selection-start-line="71" selection-start-column="68" selection-end-line="71" selection-end-column="68" />
+          <folding>
+            <element signature="method#checkBorder#0;class#OthelloGame#0" expanded="false" />
+            <element signature="method#getState#0;class#OthelloGame#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
