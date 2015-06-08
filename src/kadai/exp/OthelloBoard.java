@@ -10,9 +10,10 @@ import java.awt.event.ActionListener;
  */
 public class OthelloBoard extends JPanel implements ActionListener{
     public OthelloPiece[] pieces;
+    public Boolean currentWhite;
     public OthelloBoard() {
         // config panel
-        this.setBackground(Color.black);
+        this.setBackground(Color.gray);
         this.setPreferredSize(new Dimension(600, 600));
         this.setLayout(new FlowLayout());
         // config pieces
@@ -22,10 +23,17 @@ public class OthelloBoard extends JPanel implements ActionListener{
             this.add(piece);
             piece.addActionListener(this);
         }
+        // default values
+        currentWhite = false;
     }
 
     public void actionPerformed(ActionEvent e){
         OthelloPiece thePiece = (OthelloPiece)e.getSource();
-        thePiece.changeState(OthelloPieceState.Black);
+        if(currentWhite){
+            thePiece.changeState(OthelloPieceState.White);
+        } else {
+            thePiece.changeState(OthelloPieceState.Black);
+        }
+        currentWhite = !currentWhite;
     }
 }
