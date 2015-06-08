@@ -8,8 +8,10 @@ import java.awt.*;
  */
 public class OthelloPiece extends JButton{
     public OthelloPieceState state = OthelloPieceState.None;
+    public int index;
     private ImageIcon whitePiece, blackPiece;
-    public OthelloPiece(){
+    public OthelloPiece(int index){
+        this.index = index;
         this.setPreferredSize(new Dimension(69, 69));
         // get rid of borders
         this.setBackground(null);
