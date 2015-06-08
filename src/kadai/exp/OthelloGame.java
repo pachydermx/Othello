@@ -85,6 +85,10 @@ public class OthelloGame {
     }
 
     public boolean placePiece(int x, int y, OthelloPieceState state){
+        if (this.pieces[x][y] != OthelloPieceState.None){
+            return false;
+        }
+
         int successBuffer = 8;
         int[] distance = this.checkAvailable(x, y, state);
         for (int i = 0; i < 8; i ++){
