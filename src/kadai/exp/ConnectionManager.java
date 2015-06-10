@@ -25,14 +25,18 @@ public class ConnectionManager {
         } else {
             this.client = new Client(this, this.hostname, this.port);
             client.start();
+            ob.myTurn = false;
         }
     }
 
     public void sendMessage(String message){
-        if (this.mode == GameMode.Server){
-            this.server.sendMessage(message);
-        } else if (this.mode == GameMode.Client) {
-            this.client.sendMessage(message);
+        if (ob.myTurn) {
+            if (this.mode == GameMode.Server) {
+                this.server.sendMessage(message);
+            } else if (this.mode == GameMode.Client) {
+                this.client.sendMessage(message);
+            }
+            ob.myTurn = false;
         }
     }
 
@@ -41,6 +45,7 @@ public class ConnectionManager {
         if (location[0].equals("p")) {
             System.out.println("Try to place at " + location[1] + "," + location[2]);
             ob.placePiece(Integer.parseInt(location[1]), Integer.parseInt(location[2]), ob.currentState, false);
+            ob.myTurn = true;
         } else {
             System.out.println("Unknown ID: " + location[0]);
         }

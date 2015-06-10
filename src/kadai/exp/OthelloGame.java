@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class OthelloGame {
     public OthelloPieceState[][] pieces;
     private int[][] directions;
-    public int blackScore, whiteScore;
+    public int blackScore, whiteScore, possibleSteps;
 
     public OthelloGame() {
         this.pieces = new OthelloPieceState[8][8];
@@ -114,6 +114,7 @@ public class OthelloGame {
     public void scan(OthelloPieceState state){
         this.blackScore = 0;
         this.whiteScore = 0;
+        this.possibleSteps = 0;
         for (int x = 0; x < 8; x++){
             for (int y = 0; y < 8; y++){
                 if (this.pieces[x][y] == OthelloPieceState.Possible){
@@ -125,6 +126,7 @@ public class OthelloGame {
                 }
                 if (this.placePiece(x, y, state, false)){
                     this.pieces[x][y] = OthelloPieceState.Possible;
+                    this.possibleSteps++;
                     //System.out.println(String.format("setting %d, %d to possible", x, y));
                 }
             }

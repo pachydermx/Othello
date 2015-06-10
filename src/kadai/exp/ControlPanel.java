@@ -14,6 +14,7 @@ public class ControlPanel extends JPanel{
     public SpaceRemainDisplay srd;
     public ConnectionManager cm;
     public GameControl gc;
+    public StateDisplay sd;
 
     public ControlPanel(){
         // config panel
@@ -33,12 +34,24 @@ public class ControlPanel extends JPanel{
         this.add(srd);
         gc = new GameControl(cm);
         this.add(gc);
+        sd = new StateDisplay();
+        this.add(sd);
     }
 
-    public void update(OthelloPieceState state, String playerName, int blackScore, int whiteScore){
+    public void update(OthelloPieceState state, String playerName, int blackScore, int whiteScore, int possibleSteps){
         pd.show(state, playerName);
         sb.showScore(blackScore, whiteScore);
-        srd.showRemain(64 - blackScore - whiteScore);
+        int remain = 64 - blackScore - whiteScore;
+        srd.showRemain(remain);
+        if (remain == 0 || possibleSteps == 0){
+            if (blackScore > whiteScore){
+                sd.setLabel("Black Wins");
+            } else if (blackScore < whiteScore){
+                sd.setLabel("White Wins");
+            } else {
+                sd.setLabel("TIE");
+            }
+        }
     }
 
 }

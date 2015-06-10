@@ -14,6 +14,7 @@ public class OthelloBoard extends JPanel implements ActionListener{
     public OthelloPieceState currentState;
     public ControlPanel cp;
     public String blackName, whiteName;
+    public boolean myTurn = true;
 
     public OthelloBoard() {
         // config panel
@@ -72,7 +73,7 @@ public class OthelloBoard extends JPanel implements ActionListener{
                 stateName = whiteName;
                 next = OthelloPieceState.White;
             }
-            cp.update(next, stateName, this.game.blackScore, this.game.whiteScore);
+            cp.update(next, stateName, this.game.blackScore, this.game.whiteScore, this.game.possibleSteps);
         } catch (Exception e){
             System.out.println("Failed on Update Control Panel");
         }
@@ -99,9 +100,11 @@ public class OthelloBoard extends JPanel implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e){
-        OthelloPiece thePiece = (OthelloPiece)e.getSource();
-        int[] location = this.getXYfromIndex(thePiece.index);
-        this.placePiece(location[0], location[1], currentState, true);
+        if (myTurn) {
+            OthelloPiece thePiece = (OthelloPiece) e.getSource();
+            int[] location = this.getXYfromIndex(thePiece.index);
+            this.placePiece(location[0], location[1], currentState, true);
+        }
     }
 
     public boolean placePiece(int x, int y, OthelloPieceState color, boolean send){

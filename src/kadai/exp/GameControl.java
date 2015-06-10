@@ -16,7 +16,7 @@ public class GameControl extends JPanel implements ActionListener{
 
     public GameControl (ConnectionManager cm){
         this.cm = cm;
-        this.setPreferredSize(new Dimension(180, 200));
+        this.setPreferredSize(new Dimension(180, 160));
         this.setLayout(new FlowLayout());
 
         modeDisplay = new JLabel("Single Player");
@@ -45,6 +45,7 @@ public class GameControl extends JPanel implements ActionListener{
         } else if (e.getSource() == clientButton){
             this.cm.init(GameMode.Client, hostnameInput.getText(), Integer.parseInt(portInput.getText()));
             modeDisplay.setText("Client Mode");
+
         }
         hostnameInput.setEnabled(false);
         portInput.setEnabled(false);
