@@ -67,11 +67,11 @@ public class OthelloBoard extends JPanel implements ActionListener{
             String stateName;
             OthelloPieceState next;
             if (this.currentState == OthelloPieceState.Black){
-                stateName = whiteName;
-                next = OthelloPieceState.White;
-            } else {
                 stateName = blackName;
                 next = OthelloPieceState.Black;
+            } else {
+                stateName = whiteName;
+                next = OthelloPieceState.White;
             }
             cp.update(next, stateName, this.game.blackScore, this.game.whiteScore);
         } catch (Exception e){
@@ -97,5 +97,6 @@ public class OthelloBoard extends JPanel implements ActionListener{
         boolean success = this.game.placePiece(location[0], location[1], currentState, true);
         this.updateBoard();
         if (success) this.changePlayer();
+        this.updateBoard();
     }
 }

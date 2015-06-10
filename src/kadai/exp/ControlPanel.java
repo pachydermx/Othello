@@ -9,6 +9,7 @@ import java.awt.*;
 public class ControlPanel extends JPanel{
     PlayerDisplay pd;
     ScoreBoard sb;
+    SpaceRemainDisplay srd;
     public ControlPanel(){
         // config panel
         this.setBackground(Color.white);
@@ -20,11 +21,14 @@ public class ControlPanel extends JPanel{
         this.add(pd);
         sb = new ScoreBoard();
         this.add(sb);
+        srd = new SpaceRemainDisplay();
+        this.add(srd);
     }
 
     public void update(OthelloPieceState state, String playerName, int blackScore, int whiteScore){
         pd.show(state, playerName);
         sb.showScore(blackScore, whiteScore);
+        srd.showRemain(64 - blackScore - whiteScore);
     }
 
 }
