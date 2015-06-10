@@ -10,6 +10,8 @@ public class ControlPanel extends JPanel{
     PlayerDisplay pd;
     ScoreBoard sb;
     SpaceRemainDisplay srd;
+    Server server;
+
     public ControlPanel(){
         // config panel
         this.setBackground(Color.white);

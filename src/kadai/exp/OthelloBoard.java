@@ -59,7 +59,6 @@ public class OthelloBoard extends JPanel implements ActionListener{
             this.pieces[i].changeState(newState[i]);
         }
         this.tryToUpdateControlPanel();
-
     }
 
     private void tryToUpdateControlPanel(){
@@ -74,6 +73,14 @@ public class OthelloBoard extends JPanel implements ActionListener{
                 next = OthelloPieceState.White;
             }
             cp.update(next, stateName, this.game.blackScore, this.game.whiteScore);
+        } catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+    private void tryToSendPiece(int x, int y){
+        try {
+            cp.server.sendMessage("(" + x + ","+ y + ")");
         } catch (Exception e){
             System.out.println(e);
         }
@@ -95,6 +102,7 @@ public class OthelloBoard extends JPanel implements ActionListener{
         OthelloPiece thePiece = (OthelloPiece)e.getSource();
         int[] location = this.getXYfromIndex(thePiece.index);
         boolean success = this.game.placePiece(location[0], location[1], currentState, true);
+        this.tryToSendPiece(location[0], location[1]);
         this.updateBoard();
         if (success) this.changePlayer();
         this.updateBoard();

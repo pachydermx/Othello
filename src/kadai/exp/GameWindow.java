@@ -28,6 +28,11 @@ public class GameWindow extends JFrame{
         // show window
         this.setVisible(true);
 
+        // enable server
+        Server server = new Server(50000);
+        server.start();
+        cp.server = server;
+
         // start game
         ob.newGame();
     }
