@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 /**
  * Created by pachydermx on 15/06/08.
@@ -13,6 +12,8 @@ public class OthelloBoard extends JPanel implements ActionListener{
     public OthelloPiece[] pieces;
     public OthelloGame game;
     public OthelloPieceState currentState;
+    public ControlPanel cp;
+    public String blackName, whiteName;
 
     public OthelloBoard() {
         // config panel
@@ -31,6 +32,13 @@ public class OthelloBoard extends JPanel implements ActionListener{
         // default values
         this.currentState = OthelloPieceState.Black;
 
+        // set names
+        this.blackName = "Black";
+        this.whiteName = "White";
+
+    }
+
+    public void newGame() {
         // config game
         game = new OthelloGame();
         game.pieces[3][3] = OthelloPieceState.White;
@@ -38,18 +46,37 @@ public class OthelloBoard extends JPanel implements ActionListener{
         game.pieces[3][4] = OthelloPieceState.Black;
         game.pieces[4][3] = OthelloPieceState.Black;
         this.updateBoard();
-
     }
 
     private void updateBoard(){
-        this.game.scanPossible(currentState);
+        // scan possible steps
+        this.game.scan(currentState);
+        // get board
         OthelloPieceState[] newState = this.game.getBoard();
-        System.out.println(Arrays.toString(newState));
 
+        // perform
         for (int i = 0; i < 64; i++){
             this.pieces[i].changeState(newState[i]);
         }
+        this.tryToUpdateControlPanel();
 
+    }
+
+    private void tryToUpdateControlPanel(){
+        try {
+            String stateName;
+            OthelloPieceState next;
+            if (this.currentState == OthelloPieceState.Black){
+                stateName = whiteName;
+                next = OthelloPieceState.White;
+            } else {
+                stateName = blackName;
+                next = OthelloPieceState.Black;
+            }
+            cp.update(next, stateName, this.game.blackScore, this.game.whiteScore);
+        } catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     private int[] getXYfromIndex(int index){
@@ -68,7 +95,7 @@ public class OthelloBoard extends JPanel implements ActionListener{
         OthelloPiece thePiece = (OthelloPiece)e.getSource();
         int[] location = this.getXYfromIndex(thePiece.index);
         boolean success = this.game.placePiece(location[0], location[1], currentState, true);
-        if (success) this.changePlayer();
         this.updateBoard();
+        if (success) this.changePlayer();
     }
 }

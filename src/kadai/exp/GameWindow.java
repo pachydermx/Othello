@@ -19,7 +19,16 @@ public class GameWindow extends JFrame{
         OthelloBoard ob = new OthelloBoard();
         this.add(ob);
 
+        // create control panel
+        ControlPanel cp = new ControlPanel();
+        this.add(cp);
+
+        ob.cp = cp;
+
         // show window
         this.setVisible(true);
+
+        // start game
+        ob.newGame();
     }
 }

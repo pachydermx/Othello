@@ -6,9 +6,10 @@ import java.util.Arrays;
  * Created by pachydermx on 15/06/08.
  */
 public class OthelloGame {
-    public boolean currentWhite;
     public OthelloPieceState[][] pieces;
     private int[][] directions;
+    public int blackScore, whiteScore;
+
     public OthelloGame() {
         this.pieces = new OthelloPieceState[8][8];
         for (int i = 0; i < 8; i++){
@@ -110,11 +111,17 @@ public class OthelloGame {
         }
     }
 
-    public void scanPossible(OthelloPieceState state){
+    public void scan(OthelloPieceState state){
+        this.blackScore = 0;
+        this.whiteScore = 0;
         for (int x = 0; x < 8; x++){
             for (int y = 0; y < 8; y++){
                 if (this.pieces[x][y] == OthelloPieceState.Possible){
                     this.pieces[x][y] = OthelloPieceState.None;
+                } else if (this.pieces[x][y] == OthelloPieceState.Black){
+                    this.blackScore++;
+                } else if (this.pieces[x][y] == OthelloPieceState.White){
+                    this.whiteScore++;
                 }
                 if (this.placePiece(x, y, state, false)){
                     this.pieces[x][y] = OthelloPieceState.Possible;
@@ -144,7 +151,7 @@ public class OthelloGame {
         aGame.pieces[2][2] = OthelloPieceState.White;
         aGame.pieces[1][2] = OthelloPieceState.Black;
         aGame.pieces[2][1] = OthelloPieceState.Black;
-        aGame.scanPossible(OthelloPieceState.Black);
+        aGame.scan(OthelloPieceState.Black);
         System.out.println("-------------------");
         boolean result = aGame.placePiece(3, 2, OthelloPieceState.Black, true);
         System.out.println(result);
