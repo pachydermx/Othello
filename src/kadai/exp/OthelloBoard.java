@@ -74,15 +74,15 @@ public class OthelloBoard extends JPanel implements ActionListener{
             }
             cp.update(next, stateName, this.game.blackScore, this.game.whiteScore);
         } catch (Exception e){
-            System.out.println(e);
+            System.out.println("Failed on Update Control Panel");
         }
     }
 
     private void tryToSendPiece(int x, int y){
         try {
-            cp.server.sendMessage("(" + x + ","+ y + ")");
+            cp.cm.sendMessage("p," + x + ","+ y);
         } catch (Exception e){
-            System.out.println(e);
+            System.out.println("Failed on Sending Piece");
         }
     }
 
@@ -101,10 +101,23 @@ public class OthelloBoard extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e){
         OthelloPiece thePiece = (OthelloPiece)e.getSource();
         int[] location = this.getXYfromIndex(thePiece.index);
-        boolean success = this.game.placePiece(location[0], location[1], currentState, true);
-        this.tryToSendPiece(location[0], location[1]);
+        this.placePiece(location[0], location[1], currentState, true);
+    }
+
+    public boolean placePiece(int x, int y, OthelloPieceState color, boolean send){
+        System.out.println(String.format("Trying to Place %d, %d", x, y));
+        boolean success = this.game.placePiece(x, y, color, true);
         this.updateBoard();
-        if (success) this.changePlayer();
+        if (success) {
+            if (send) {
+                this.tryToSendPiece(x, y);
+            }
+            this.changePlayer();
+            System.out.println("... success");
+        } else {
+            System.out.println("... failed");
+        }
         this.updateBoard();
+        return success;
     }
 }

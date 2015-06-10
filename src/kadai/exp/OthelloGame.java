@@ -50,7 +50,7 @@ public class OthelloGame {
                     }
                 }
             }
-            System.out.println(String.format("[%s,%s,%s,%s,%s,%s,%s,%s]",states[0],states[1],states[2],states[3],states[4],states[5],states[6],states[7]));
+            //System.out.println(String.format("[%s,%s,%s,%s,%s,%s,%s,%s]",states[0],states[1],states[2],states[3],states[4],states[5],states[6],states[7]));
             // check end
             int advances  = 0;
             for (SearchState j : states){
@@ -79,7 +79,7 @@ public class OthelloGame {
                 states[i] = OthelloPieceState.None;
             }
         }
-        System.out.println(String.format("(%d,%d)-%d, [%s,%s,%s,%s,%s,%s,%s,%s]", x, y, distance, states[0], states[1], states[2], states[3], states[4], states[5], states[6], states[7]));
+        //System.out.println(String.format("(%d,%d)-%d, [%s,%s,%s,%s,%s,%s,%s,%s]", x, y, distance, states[0], states[1], states[2], states[3], states[4], states[5], states[6], states[7]));
         return states;
     }
 
@@ -97,7 +97,7 @@ public class OthelloGame {
                         int actX = x + this.directions[i][0] * j;
                         int actY = y + this.directions[i][1] * j;
                         this.pieces[actX][actY] = state;
-                        System.out.println(String.format("Turn %d,%d to %s", actX, actY, state));
+                        //System.out.println(String.format("Turn %d,%d to %s", actX, actY, state));
                     }
                 }
             } else {

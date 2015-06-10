@@ -2,21 +2,27 @@ package kadai.exp;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by pachydermx on 15/06/10.
  */
 public class ControlPanel extends JPanel{
-    PlayerDisplay pd;
-    ScoreBoard sb;
-    SpaceRemainDisplay srd;
-    Server server;
+    public PlayerDisplay pd;
+    public ScoreBoard sb;
+    public SpaceRemainDisplay srd;
+    public ConnectionManager cm;
+    public GameControl gc;
 
     public ControlPanel(){
         // config panel
         this.setBackground(Color.white);
         this.setPreferredSize(new Dimension(200, 600));
         this.setLayout(new FlowLayout());
+
+        // connection
+        cm = new ConnectionManager();
 
         // config widgets
         pd = new PlayerDisplay();
@@ -25,6 +31,8 @@ public class ControlPanel extends JPanel{
         this.add(sb);
         srd = new SpaceRemainDisplay();
         this.add(srd);
+        gc = new GameControl(cm);
+        this.add(gc);
     }
 
     public void update(OthelloPieceState state, String playerName, int blackScore, int whiteScore){

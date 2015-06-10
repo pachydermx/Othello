@@ -14,8 +14,11 @@ public class Server extends Thread{
     private Socket clientSocket;
     private PrintWriter out;
     private int port;
+    private ConnectionManager cm;
+    BufferedReader in;
 
-    public Server(int port){
+    public Server(ConnectionManager cm, int port){
+        this.cm = cm;
         this.port = port;
     }
 
@@ -25,22 +28,32 @@ public class Server extends Thread{
             // wait for connection
             clientSocket = ss.accept();
             out = new PrintWriter(clientSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             String inputLine;
-            out.println("hello");
+            out.println("server: hello");
             while ((inputLine = in.readLine()) != null){
-                System.out.println("Server: " + inputLine);
+                System.out.println("Server:: Received Message::" + inputLine);
+                this.cm.didReceivedMessage(inputLine);
             }
-            out.close();
-            in.close();
-            clientSocket.close();
-            ss.close();
         } catch (Exception e){
-            System.out.println(e);
+            System.out.println("Server Error");
+            e.printStackTrace();
         }
     }
 
     public void sendMessage(String message){
+        System.out.println("Server:: Send Message::" + message);
         out.println(message);
+    }
+
+    public void closeConnection(){
+        try {
+            out.close();
+            in.close();
+            clientSocket.close();
+            ss.close();
+        } catch (Exception e) {
+
+        }
     }
 }
