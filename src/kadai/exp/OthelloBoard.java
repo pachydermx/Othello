@@ -33,15 +33,16 @@ public class OthelloBoard extends JPanel implements ActionListener{
 
         // config game
         game = new OthelloGame();
-        game.pieces[1][1] = OthelloPieceState.White;
-        game.pieces[2][2] = OthelloPieceState.White;
-        game.pieces[1][2] = OthelloPieceState.Black;
-        game.pieces[2][1] = OthelloPieceState.Black;
+        game.pieces[3][3] = OthelloPieceState.White;
+        game.pieces[4][4] = OthelloPieceState.White;
+        game.pieces[3][4] = OthelloPieceState.Black;
+        game.pieces[4][3] = OthelloPieceState.Black;
         this.updateBoard();
 
     }
 
     private void updateBoard(){
+        this.game.scanPossible(currentState);
         OthelloPieceState[] newState = this.game.getBoard();
         System.out.println(Arrays.toString(newState));
 
@@ -66,8 +67,8 @@ public class OthelloBoard extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e){
         OthelloPiece thePiece = (OthelloPiece)e.getSource();
         int[] location = this.getXYfromIndex(thePiece.index);
-        boolean success = this.game.placePiece(location[0], location[1], currentState);
-        this.updateBoard();
+        boolean success = this.game.placePiece(location[0], location[1], currentState, true);
         if (success) this.changePlayer();
+        this.updateBoard();
     }
 }

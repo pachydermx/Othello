@@ -16,11 +16,10 @@ public class OthelloGame {
                 this.pieces[i][j] = OthelloPieceState.None;
             }
         }
-        this.directions = new int[][]{{-1, 0}, {-1, -1}, {0, -1}, {1, -1}, {1, 0}, {1, -1}, {0, -1}, {-1, 1}};
+        this.directions = new int[][]{{-1, 0}, {-1, -1}, {0, -1}, {1, -1}, {1, 0}, {1, 1}, {0, 1}, {-1, 1}};
     }
 
     private int[] checkAvailable(int x, int y, OthelloPieceState state){
-        boolean available = false;
         int[] distance = new int[8];
         SearchState[] states = new SearchState[8];
         for (int i = 0; i < 8; i++){
@@ -31,7 +30,7 @@ public class OthelloGame {
         // check adjunct ... if adjunct is the same then stop
         OthelloPieceState[] adjunctState = this.getState(x, y, 1);
         for (int i = 0; i < 8; i++){
-            if (state == adjunctState[i] || adjunctState[i] == OthelloPieceState.None){
+            if (state == adjunctState[i] || adjunctState[i] == OthelloPieceState.None || adjunctState[i] == OthelloPieceState.Possible){
                 states[i] = SearchState.Out;
                 distance[i] = 0;
             }
@@ -41,12 +40,11 @@ public class OthelloGame {
             OthelloPieceState[] roundState = this.getState(x, y, i);
             for (int j = 0; j < 8; j++){
                 if (states[j] == SearchState.Advance){
-                    if (roundState[j] == OthelloPieceState.None){
+                    if (roundState[j] == OthelloPieceState.None || roundState[j] == OthelloPieceState.Possible){
                         states[j] = SearchState.Out;
                         distance[i] = 0;
                     } else if (roundState[j] == state){
                         states[j] = SearchState.Found;
-                        available = true;
                         distance[j] = i;
                     }
                 }
@@ -61,7 +59,7 @@ public class OthelloGame {
             }
             if(advances == 0) break;
         }
-        System.out.println(Arrays.toString(distance));
+        //System.out.println(Arrays.toString(distance));
         return distance;
     }
 
@@ -84,8 +82,8 @@ public class OthelloGame {
         return states;
     }
 
-    public boolean placePiece(int x, int y, OthelloPieceState state){
-        if (this.pieces[x][y] != OthelloPieceState.None){
+    public boolean placePiece(int x, int y, OthelloPieceState state, boolean act){
+        if (this.pieces[x][y] != OthelloPieceState.None && this.pieces[x][y] != OthelloPieceState.Possible){
             return false;
         }
 
@@ -93,11 +91,13 @@ public class OthelloGame {
         int[] distance = this.checkAvailable(x, y, state);
         for (int i = 0; i < 8; i ++){
             if (distance[i] > 0){
-                for (int j = 0; j < distance[i]; j++){
-                    int actX = x + this.directions[i][0] * j;
-                    int actY = y + this.directions[i][1] * j;
-                    this.pieces[actX][actY] = state;
-                    System.out.println(String.format("Turn %d,%d to %s", actX, actY, state));
+                if (act) {
+                    for (int j = 0; j < distance[i]; j++) {
+                        int actX = x + this.directions[i][0] * j;
+                        int actY = y + this.directions[i][1] * j;
+                        this.pieces[actX][actY] = state;
+                        System.out.println(String.format("Turn %d,%d to %s", actX, actY, state));
+                    }
                 }
             } else {
                 successBuffer--;
@@ -110,15 +110,30 @@ public class OthelloGame {
         }
     }
 
+    public void scanPossible(OthelloPieceState state){
+        for (int x = 0; x < 8; x++){
+            for (int y = 0; y < 8; y++){
+                if (this.pieces[x][y] == OthelloPieceState.Possible){
+                    this.pieces[x][y] = OthelloPieceState.None;
+                }
+                if (this.placePiece(x, y, state, false)){
+                    this.pieces[x][y] = OthelloPieceState.Possible;
+                    //System.out.println(String.format("setting %d, %d to possible", x, y));
+                }
+            }
+        }
+    }
+
     public OthelloPieceState[] getBoard(){
-        int i = 0;
         OthelloPieceState[] output = new OthelloPieceState[64];
+        int i = 0;
         for (OthelloPieceState[] row : this.pieces){
             for(OthelloPieceState point: row){
                 output[i] = point;
                 i++;
             }
         }
+
         return output;
     }
 
@@ -129,7 +144,10 @@ public class OthelloGame {
         aGame.pieces[2][2] = OthelloPieceState.White;
         aGame.pieces[1][2] = OthelloPieceState.Black;
         aGame.pieces[2][1] = OthelloPieceState.Black;
-        System.out.println((aGame.placePiece(3, 2, OthelloPieceState.Black)));
+        aGame.scanPossible(OthelloPieceState.Black);
+        System.out.println("-------------------");
+        boolean result = aGame.placePiece(3, 2, OthelloPieceState.Black, true);
+        System.out.println(result);
         System.out.println(Arrays.toString(aGame.getBoard()));
     }
 }

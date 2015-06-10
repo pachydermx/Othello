@@ -6,5 +6,6 @@ package kadai.exp;
 public enum OthelloPieceState {
     None,
     White,
-    Black
+    Black,
+    Possible
 }

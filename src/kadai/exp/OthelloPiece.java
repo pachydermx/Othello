@@ -9,7 +9,7 @@ import java.awt.*;
 public class OthelloPiece extends JButton{
     public OthelloPieceState state = OthelloPieceState.None;
     public int index;
-    private ImageIcon whitePiece, blackPiece;
+    private ImageIcon whitePiece, blackPiece, possible;
     public OthelloPiece(int index){
         this.index = index;
         this.setPreferredSize(new Dimension(69, 69));
@@ -22,13 +22,17 @@ public class OthelloPiece extends JButton{
         // icons
         whitePiece = new ImageIcon("WhitePiece.png");
         blackPiece = new ImageIcon("BlackPiece.png");
+        possible = new ImageIcon("Possible.png");
     }
     public void changeState(OthelloPieceState newState){
         if(newState == OthelloPieceState.Black){
             this.setIcon(blackPiece);
-        }
-        if(newState == OthelloPieceState.White){
+        } else if(newState == OthelloPieceState.White){
             this.setIcon(whitePiece);
+        } else if(newState == OthelloPieceState.Possible){
+            this.setIcon(possible);
+        } else {
+            this.setIcon(null);
         }
         this.state = newState;
     }
