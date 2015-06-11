@@ -4,6 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by pachydermx on 15/06/08.
@@ -117,6 +123,21 @@ public class OthelloBoard extends JPanel implements ActionListener{
             }
             this.changePlayer();
             System.out.println("... success");
+
+            File log = new File("log.txt");
+            try {
+                log.createNewFile();
+                FileOutputStream fos = new FileOutputStream(log, true);
+                OutputStreamWriter osw = new OutputStreamWriter(fos);
+                PrintWriter pw = new PrintWriter(osw);
+                pw.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()) + String.format(" - Piece at %d, %d", x, y));
+                pw.close();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            // logger
+
         } else {
             System.out.println("... failed");
         }
